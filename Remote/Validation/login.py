@@ -8,8 +8,6 @@ from Domain.Validation.UserValidationService import validate_user
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = 'your_secret_key_here'
-
 
 @app.route('/login', methods=['POST'])
 def login():
