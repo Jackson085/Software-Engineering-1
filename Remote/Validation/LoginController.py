@@ -2,12 +2,14 @@ from flask import request, jsonify, Blueprint
 
 from Domain.Validation.TokenGenerationService import create_token_for_user, create_token_for_admin
 from Domain.Validation.TokenValidationService import user_token_required, admin_token_required
-from Domain.Validation.ValidationService import validate_user, validate_admin
+from Domain.Validation.ValidationService import ValidationService
 
-auth_bp = Blueprint('auth', __name__)
+validation_service = ValidationService()
+
+login_app_bp = Blueprint('login', __name__)
 
 
-@auth_bp.route('/login', methods=['POST'])
+@login_app_bp.route('/login', methods=['POST'])
 def login():
     """
     User or Admin Login
@@ -50,11 +52,11 @@ def login():
     username = auth.get("username")
     password = auth.get("password")
 
-    if validate_user(username, password):
+    if validation_service.validate_user(username, password):
         user_token = create_token_for_user(username)
         return jsonify({"token": user_token}), 200
 
-    if validate_admin(username, password):
+    if validation_service.validate_admin(username, password):
         token = create_token_for_admin(username)
 
         return jsonify({"token": token}), 200
@@ -62,9 +64,8 @@ def login():
     else:
         return jsonify({"message": "Invalid credentials"}), 401
 
-
 # Sample protected route
-@auth_bp.route('/protected/user', methods=['GET'])
+@login_app_bp.route('/protected/user', methods=['GET'])
 @user_token_required
 def protected_user():
     """
@@ -104,7 +105,7 @@ def protected_user():
     """
     return jsonify({"message": "Access granted to protected route"}), 200
 
-@auth_bp.route('/protected/admin', methods=['GET'])
+@login_app_bp.route('/protected/admin', methods=['GET'])
 @admin_token_required
 def protected_admin():
     """
