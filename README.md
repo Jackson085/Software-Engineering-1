@@ -9,7 +9,7 @@ To start the backend server, follow these steps:
    In the CLI, execute the following command:
 
 ```bash
-pip install -r requirements.tx
+pip install -r requirements.txt
 python -u -m Docker.entrypoint
 ```
 

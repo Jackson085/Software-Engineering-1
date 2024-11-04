@@ -1,15 +1,15 @@
-USER_DATA = {
-    "username": "user",
-    "password": "user",
-    "username_admin": "admin",
-    "admin_password": "admin"
-}
+from Domain.Database.DatabaseService import DatabaseService
+from werkzeug.security import check_password_hash
 
-from werkzeug.security import generate_password_hash, check_password_hash
-def validate_user(username, password):
-    # todo
-    return username == USER_DATA["username"] and password == USER_DATA["password"]
 
-def validate_admin(username, password):
-    # todo
-    return username == USER_DATA["username_admin"] and password == USER_DATA["admin_password"]
+class ValidationService:
+    def __init__(self):
+        self.database_service = DatabaseService()
+
+    def validate_user(self, username, password):
+        pw_from_database = self.database_service.get_user_password(username)
+        return check_password_hash(pw_from_database, password)
+
+    def validate_admin(self, username, password):
+        pw_from_database = self.database_service.get_admin_password(username)
+        return check_password_hash(pw_from_database, password)
