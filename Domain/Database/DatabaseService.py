@@ -1,7 +1,7 @@
 import os
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from typing import List
 
 class DatabaseService:
     def __init__(self):
@@ -9,6 +9,11 @@ class DatabaseService:
         self.db = self.client['kunsthandel']
         self.user_collection = self.db['collection_user']
         self.admin_collection = self.db['collection_admin']
+
+        self.categories_collection = self.db['categories']
+
+        if not self.categories_collection.find_one({"_id": "categories_list"}):
+            self.categories_collection.insert_one({"_id": "categories_list", "categories": []})
 
     # region user
     def create_user(self, username, password):
@@ -41,3 +46,16 @@ class DatabaseService:
             "username": username,
             "password": hashed_password
         })
+
+    # region categories
+    def save_categories(self, categories: List[str]):
+        self.categories_collection.update_one(
+            {"_id": "categories_list"},
+            {"$addToSet": {"categories": {"$each": categories}}}
+        )
+
+    def get_categories(self) -> List[str]:
+        document = self.categories_collection.find_one({"_id": "categories_list"})
+        return document.get("categories", []) if document else []
+
+    # endregion
