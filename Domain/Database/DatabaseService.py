@@ -9,8 +9,6 @@ class DatabaseService:
         self.db = self.client['kunsthandel']
         self.user_collection = self.db['collection_user']
         self.admin_collection = self.db['collection_admin']
-        
-        self.user_collection.create_index("username", unique=True)
 
     # region user
     def create_user(self, username, password):
