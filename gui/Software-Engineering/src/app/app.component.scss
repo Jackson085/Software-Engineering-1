@@ -1,0 +1,147 @@
+// //Allgemeine Stile für die Seite
+// body {
+//     margin: 0;
+//     font-family: Arial, sans-serif;
+//     background-color: #f3f4f6;
+//   }
+  
+//   // Stil für die Header-Leiste
+//   .header {
+//     width: 92%;
+//     background-color: #007bff; // Hintergrundfarbe der Header-Leiste
+//     padding: 0px 30px; // Innenabstand für die Leiste
+//     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+//     .header-content {
+//       display: flex;
+//       justify-content: center; // Inhalt zentrieren
+//       align-items: center;
+//       color: #fff; // Textfarbe für den Header
+//     }
+//   }
+  
+//   // Stile für den Hauptinhalt
+//   .welcome-container {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+//     height: calc(93vh - 55px); // Höhe abzüglich der Header-Leiste
+//     text-align: center;
+  
+//     h1 {
+//       font-size: 36px;
+//       margin-bottom: 40px;
+//       color: #333;
+//     }
+  
+//     .auth-nav {
+//       display: flex;
+//       flex-direction: column;
+//       align-items: center;
+  
+//       button {
+//         background-color: #007bff;
+//         color: #fff;
+//         border: none;
+//         border-radius: 8px;
+//         padding: 12px 24px;
+//         margin: 10px 0;
+//         font-size: 18px;
+//         cursor: pointer;
+//         width: 200px;
+//         transition: all 0.3s ease;
+  
+//         &:hover {
+//           background-color: #0056b3;
+//         }
+  
+//         &:focus {
+//           outline: none;
+//           box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+//         }
+//       }
+//     }
+//   }
+  
+//////////////////////////////////////////////
+
+/* Container für die gesamte Homepage */
+.Homepage {
+    display: flex;
+    height: 97vh;
+    width: 100%;
+  }
+  
+  /* Linke Seite der Homepage */
+  .Left-Side-Homepage {
+    width: 60%;
+    height: 100%;
+    background-color: blue;
+    position: relative; /* Kann auch 'fixed' sein, wenn du möchtest, dass es scroll-fest ist */
+    z-index: 10; /* Stellt sicher, dass es überlappt, falls nötig */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Optionaler Schatten */
+    background-image: url('./Background/large-triangles-blue-background.jpg');
+    background-size: cover;
+
+    p{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding:10px;
+    }
+  }
+  
+  /* Rechte Seite der Homepage */
+  .Right-Side-Homepage {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    color: black;
+
+        p{
+            margin: 8px;
+        }
+
+        a{
+            padding-left: 60px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding-top: 40px;
+          }
+          
+          input {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+          }
+          
+          button {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+  }
+  
