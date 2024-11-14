@@ -1,7 +1,7 @@
 import unittest
-from DomainTests.CategoriesService.CategoriesServiceTest import CategoriesServiceTest
-from DomainTests.RemoteTests.Controller.LoginControllerTest import LoginControllerTest
-from DomainTests.Validation.UserServiceTest import UserServiceTest
+from UnitTests.CategoriesService.CategoriesServiceTest import CategoriesServiceTest
+from UnitTests.RemoteTests.Controller.LoginControllerTest import LoginControllerTest
+from UnitTests.Validation.UserServiceTest import UserServiceTest
 
 if __name__ == '__main__':
     test_suite = unittest.TestSuite()
