@@ -72,6 +72,18 @@
     height: 97vh;
     width: 100%;
   }
+  .app-register{
+    width: 40%;
+    flex-grow: 1;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    color: black;
+  }
   
   /* Linke Seite der Homepage */
   .Left-Side-Homepage {
@@ -86,7 +98,7 @@
     flex-direction: column;
     color: white;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Optionaler Schatten */
-    background-image: url('./Background/large-triangles-blue-background.jpg');
+    background-image: url('./Background/pngtree-futuristic-shape-abstract-background-chemistry-technology-concept-for-website-picture-image_1250295.jpg');
     background-size: cover;
 
     p{
@@ -116,10 +128,6 @@
             margin: 8px;
         }
 
-        a{
-            padding-left: 60px;
-        }
-
         form {
             display: flex;
             flex-direction: column;
@@ -143,5 +151,87 @@
             border-radius: 5px;
             cursor: pointer;
           }
+  }
+  
+  .Message{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: lightblue;
+    padding: 10px 20px;
+    color: white;
+    position: relative; /* Damit der mittlere Teil absolut zentriert werden kann */
+  
+    .navbar-left {
+      display: flex;
+      gap: 15px;
+  
+      button {
+        background-color: transparent;
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 8px 12px;
+        transition: background-color 0.3s;
+  
+        &:hover {
+          background-color: #555;
+        }
+  
+        &.active {
+          background-color: #007bff; /* Farbe für den aktiven Button */
+          color: white;
+          border-radius: 5px;
+        }
+      }
+    }
+  
+    .navbar-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+  
+      h1 {
+        margin: 0;
+        font-size: 24px;
+      }
+    }
+  
+    .navbar-right {
+      display: flex;
+      align-items: center;
+  
+    //   .profile-icon {
+    //     width: 40px;
+    //     height: 40px;
+    //     border-radius: 50%;
+    //     object-fit: cover;
+    //     cursor: pointer;
+    //   }
+    button {
+        background-color: transparent;
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 8px 12px;
+        transition: background-color 0.3s;
+        &:hover {
+            background-color: #555;
+          }
+    
+          &.active {
+            border-bottom: 2px solid white;
+          }
+    }
+    }
   }
   

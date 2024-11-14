@@ -15,23 +15,63 @@
 </div>
 <router-outlet></router-outlet>
 -->
-<div class="Homepage">
-  <div class="Left-Side-Homepage">
-    <h1>Software-Engineering</h1>
-    <h2>Ein Kunsthändler-Projekt von:</h2>
-    <h3>Tim, Max, Timon, Niklas und Luca</h3>
-    <p>Copyright &#169; 2023 Software-Engineering</p>
-  </div>
-  <div class="Right-Side-Homepage">
-    <h2>Herzlich Willkommen!</h2>
-    <span>
-      <p>Du hast keinen Account? Dann kannst du</p>
-      <a href="/Register">hier einen erstellen!</a>
-    </span> 
-    <form>
-      <input type="email" placeholder="Email Address" required>
-      <input type="password" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
-  </div>
-</div>
+@if(ShowHome || ShowGalerie){
+  <nav class="navbar">
+    <!-- Linke Seite: Navigationsbuttons -->
+    <div class="navbar-left">
+      <button routerLink="/Home" routerLinkActive="active" (click)="Home()">Home</button>
+      <button routerLink="/Galerie" routerLinkActive="active" routerLinkActiveOptions="{ exact: true }" (click)="Galerie()">Galerie</button>
+      <button routerLink="/PersönlicheMappe" routerLinkActive="active">Persönliche Mappen</button>
+      <button routerLink="/Kontakt" routerLinkActive="active">Kontakt</button>
+      <button routerLink="/Impressum" routerLinkActive="active">Impressum</button>
+    </div>
+  
+    <!-- Mittlere Seite: Überschrift -->
+    <div class="navbar-center">
+      <h1>Homepage</h1>
+    </div>
+  
+    <!-- Rechte Seite: Profil-Logo -->
+    <div class="navbar-right">
+      <button>Profil</button>
+    </div>
+  </nav>
+
+  @if(ShowHome){
+    <H1>Home</H1>
+  }
+  @if(ShowGalerie){
+    <app-galerie/>
+  }
+}
+@else{
+  <div class="Homepage">
+    <div class="Left-Side-Homepage">
+      <h1>Software-Engineering</h1>
+      <h2>Ein Kunsthändler-Projekt von:</h2>
+      <h3>Tim, Max, Timon, Niklas und Luca</h3>
+      <p>Copyright &#169; 2023 Software-Engineering</p>
+    </div>
+    @if(ShowLogin){
+      <div class="Right-Side-Homepage">
+        <h2>Herzlich Willkommen!</h2>
+        <span class="Message">
+          <p>Du hast keinen Account? Dann kannst du</p>
+          <a routerLink="/Register" (click)="Register()">hier einen erstellen!</a>
+        </span> 
+        <form>
+          <input type="email" placeholder="Email Address" required>
+          <input type="password" placeholder="Password" required>
+          <button type="submit" routerLink="/Home" (click)="Home()">Login</button>
+        </form>
+      </div>
+    }
+    @if(ShowRegister){
+      <app-register class="app-register"/>
+    }
+  </div>  
+}
+
+
+
+

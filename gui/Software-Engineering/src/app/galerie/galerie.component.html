@@ -1,0 +1,26 @@
+
+<div class="Galerie">
+
+    <div class="Left-Galerie">
+        <button (click)="addImage()">Bild hinzufügen</button>
+        <div>
+            <ul>
+                <li *ngFor="let image of images; let i = index">
+                    <div class="image-item">
+                        <span>{{image.title}}</span>
+                        <button (click)="editImage(i)">Bearbeiten</button>
+                        <button (click)="deleteImage(i)">Löschen</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    
+    <div class="Anzeigebereich">
+    
+    
+    </div>
+
+</div>
+
