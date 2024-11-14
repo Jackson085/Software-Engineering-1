@@ -1,8 +1,8 @@
 from flask import Blueprint, request, jsonify
 
-from Domain.Database.DatabaseService import DatabaseService
+from Domain.Validation.UserService import UserService
 
-database_service = DatabaseService()
+user_service = UserService()
 
 register_app_bp = Blueprint('register', __name__)
 
@@ -13,8 +13,10 @@ def register_user():
     ---
     tags:
       - Authentication
+    summary: Register a new user
+    description: Register a new user by providing a unique username and a password. Returns a success message if the user is registered, or an error if there are issues with the data provided.
     parameters:
-      - name: registration_data
+      - name: user_data
         in: body
         required: true
         schema:
@@ -22,33 +24,60 @@ def register_user():
           properties:
             username:
               type: string
-              example: new_user
-              description: Desired username for the new account
+              example: "new_user"
+              description: "The unique username for the new user"
             password:
               type: string
-              example: password123
-              description: Desired password for the new account
+              example: "secure_password"
+              description: "The password for the new user"
     responses:
       201:
         description: User registered successfully
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "registered successfully"
       400:
         description: Missing username or password
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Username and password are required"
       409:
-        description: User with this username already exists
+        description: Username already exists
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "user: new_user already exists"
+      500:
+        description: Server error
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Internal server error message"
     """
     data = request.get_json()
-    if not data or not data.get("username") or not data.get("password"):
-        return jsonify({"message": "Username and password are required"}), 400
 
-    username = data["username"]
-    password = data["password"]
+    username = data.get("username")
+    password = data.get("password")
 
     try:
-        database_service.create_user(username, password)
+        user_service.create_user(username, password)
         return jsonify({"message": "registered successfully"}), 201
 
-    except KeyError as ke:
-        return jsonify({"message": ke.__str__()}), 409
+    except KeyError:
+        return jsonify({"message": f'user: {username} already exists'}), 409
 
-    except Exception:
+    except TypeError:
         return jsonify({"message": "Username and password are required"}), 400
+
+    except Exception as e:
+        return jsonify({"message": str(e)}), 500

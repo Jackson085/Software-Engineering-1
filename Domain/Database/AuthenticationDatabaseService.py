@@ -1,21 +1,17 @@
-import os
-from pymongo import MongoClient
-from werkzeug.security import generate_password_hash, check_password_hash
-from typing import List
+from Domain.Database.BaseConnection import BaseConnection
+from werkzeug.security import generate_password_hash
 
-class DatabaseService:
+class AuthenticationDatabaseService(BaseConnection):
     def __init__(self):
-        self.client = MongoClient('mongodb://localhost:27017/')
-        self.db = self.client['kunsthandel']
-        self.user_collection = self.db['collection_user']
-        self.admin_collection = self.db['collection_admin']
+        BaseConnection.__init__(self)
 
-        self.categories_collection = self.db['categories']
-
-        if not self.categories_collection.find_one({"_id": "categories_list"}):
-            self.categories_collection.insert_one({"_id": "categories_list", "categories": []})
+        self.user_collection = self.database['collection_user']
+        self.admin_collection = self.database['collection_admin']
 
     # region user
+    def get_all_usernames(self):
+        return [user['username'] for user in self.user_collection.find({}, {"username": 1, "_id": 0})]
+
     def create_user(self, username, password):
         return self._create_account(self.user_collection, username, password)
 
@@ -35,8 +31,9 @@ class DatabaseService:
         if entry is not None and (key := "password") in entry.keys():
             return entry[key]
         return ""
-
     # endregion
+
+    @staticmethod
     def _create_account(self, collection, username, password):
         hashed_password = generate_password_hash(password)
         if collection.find_one({"username": username}):
@@ -47,15 +44,7 @@ class DatabaseService:
             "password": hashed_password
         })
 
-    # region categories
-    def save_categories(self, categories: List[str]):
-        self.categories_collection.update_one(
-            {"_id": "categories_list"},
-            {"$addToSet": {"categories": {"$each": categories}}}
-        )
-
-    def get_categories(self) -> List[str]:
-        document = self.categories_collection.find_one({"_id": "categories_list"})
-        return document.get("categories", []) if document else []
-
-    # endregion
+if __name__ == '__main__':
+    a = AuthenticationDatabaseService()
+    x = a.get_all_usernames()
+    print(x)

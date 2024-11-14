@@ -1,10 +1,12 @@
 from flask import request, jsonify, Blueprint
 
+from Domain.Validation.AdminService import AdminService
 from Domain.Validation.TokenGenerationService import create_token_for_user, create_token_for_admin
 from Domain.Validation.TokenValidationService import user_token_required, admin_token_required
-from Domain.Validation.ValidationService import ValidationService
+from Domain.Validation.UserService import UserService
 
-validation_service = ValidationService()
+user_service = UserService()
+admin_service = AdminService()
 
 login_app_bp = Blueprint('login', __name__)
 
@@ -52,11 +54,11 @@ def login():
     username = auth.get("username")
     password = auth.get("password")
 
-    if validation_service.validate_user(username, password):
+    if user_service.validate(username, password):
         user_token = create_token_for_user(username)
         return jsonify({"token": user_token}), 200
 
-    if validation_service.validate_admin(username, password):
+    if admin_service.validate(username, password):
         token = create_token_for_admin(username)
 
         return jsonify({"token": token}), 200
