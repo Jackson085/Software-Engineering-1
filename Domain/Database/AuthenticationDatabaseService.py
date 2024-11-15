@@ -8,6 +8,8 @@ class AuthenticationDatabaseService(BaseConnection):
         self.user_collection = self.database['collection_user']
         self.admin_collection = self.database['collection_admin']
 
+        self.user_collection.create_index("username", unique=True)
+        
     # region user
     def get_all_usernames(self):
         return [user['username'] for user in self.user_collection.find({}, {"username": 1, "_id": 0})]
