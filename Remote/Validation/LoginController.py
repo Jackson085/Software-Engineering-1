@@ -47,6 +47,7 @@ def login():
       401:
         description: Invalid credentials
     """
+
     auth = request.get_json()
     if not auth or not auth.get("username") or not auth.get("password"):
         return jsonify({"message": "Username and password required"}), 400
