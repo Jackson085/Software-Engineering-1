@@ -1,1 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+$black: #000;
+$grey-dark: #555;
+$grey: #ccc;
+$grey-light: #f8f9fa;
+$white: #fff;
+
+$text-light: $grey-light;
+$text-dark: #333;
+
+$primary: #0056b3;
+$primary-hover: #004a9f;
+$primary-text: $text-light;
+
+$secondary: #71A3EA;
+$secondary-hover: #4E8CE4;
+$secondary-text: $text-dark;
+
+$success: #28a745;
+$success-hover: #218838;
+$success-text: $text-light;
+
+$error: #dc3545;
+$error-hover: #c82333;
+$error-text: $text-light;
+
+$warning: #ffc107;
+$warning-hover: #e0a800;
+$warning-text: $text-dark;
+
+$info: #17a2b8;
+$info-hover: #138496;
+$info-text: $text-light;
+
+$background: $grey-light;
+$background-light: #ffffff;
+
+$shadow: rgba(0, 0, 0, 0.2);

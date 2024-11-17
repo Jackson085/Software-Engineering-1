@@ -1,17 +1,18 @@
+@import 'styles';
 // //Allgemeine Stile für die Seite
 // body {
 //     margin: 0;
 //     font-family: Arial, sans-serif;
 //     background-color: #f3f4f6;
 //   }
-  
+
 //   // Stil für die Header-Leiste
 //   .header {
 //     width: 92%;
 //     background-color: #007bff; // Hintergrundfarbe der Header-Leiste
 //     padding: 0px 30px; // Innenabstand für die Leiste
 //     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  
+
 //     .header-content {
 //       display: flex;
 //       justify-content: center; // Inhalt zentrieren
@@ -19,7 +20,7 @@
 //       color: #fff; // Textfarbe für den Header
 //     }
 //   }
-  
+
 //   // Stile für den Hauptinhalt
 //   .welcome-container {
 //     display: flex;
@@ -28,18 +29,18 @@
 //     justify-content: center;
 //     height: calc(93vh - 55px); // Höhe abzüglich der Header-Leiste
 //     text-align: center;
-  
+
 //     h1 {
 //       font-size: 36px;
 //       margin-bottom: 40px;
 //       color: #333;
 //     }
-  
+
 //     .auth-nav {
 //       display: flex;
 //       flex-direction: column;
 //       align-items: center;
-  
+
 //       button {
 //         background-color: #007bff;
 //         color: #fff;
@@ -51,11 +52,11 @@
 //         cursor: pointer;
 //         width: 200px;
 //         transition: all 0.3s ease;
-  
+
 //         &:hover {
 //           background-color: #0056b3;
 //         }
-  
+
 //         &:focus {
 //           outline: none;
 //           box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
@@ -63,152 +64,158 @@
 //       }
 //     }
 //   }
-  
+
 //////////////////////////////////////////////
 
 /* Container für die gesamte Homepage */
 .Homepage {
-    display: flex;
-    height: 97vh;
+  display: flex;
+  height: 97vh;
+  width: 100%;
+}
+
+.app-register {
+  width: 40%;
+  flex-grow: 1;
+  background-color: $background;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  color: $black;
+}
+
+/* Linke Seite der Homepage */
+.Left-Side-Homepage {
+  width: 60%;
+  height: 100%;
+  background-color: $primary;
+  position: relative;
+  /* Kann auch 'fixed' sein, wenn du möchtest, dass es scroll-fest ist */
+  z-index: 10;
+  /* Stellt sicher, dass es überlappt, falls nötig */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: $white;
+  box-shadow: 2px 0 5px $shadow;
+  /* Optionaler Schatten */
+  background-image: url('./Background/pngtree-futuristic-shape-abstract-background-chemistry-technology-concept-for-website-picture-image_1250295.jpg');
+  background-size: cover;
+
+  p {
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
+    text-align: center;
+    padding: 10px;
   }
-  .app-register{
-    width: 40%;
-    flex-grow: 1;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-    color: black;
-  }
-  
-  /* Linke Seite der Homepage */
-  .Left-Side-Homepage {
-    width: 60%;
-    height: 100%;
-    background-color: blue;
-    position: relative; /* Kann auch 'fixed' sein, wenn du möchtest, dass es scroll-fest ist */
-    z-index: 10; /* Stellt sicher, dass es überlappt, falls nötig */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    color: white;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Optionaler Schatten */
-    background-image: url('./Background/pngtree-futuristic-shape-abstract-background-chemistry-technology-concept-for-website-picture-image_1250295.jpg');
-    background-size: cover;
+}
 
-    p{
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        padding:10px;
-    }
-  }
-  
-  /* Rechte Seite der Homepage */
-  .Right-Side-Homepage {
-    flex-grow: 1;
-    padding: 20px;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-    color: black;
+/* Rechte Seite der Homepage */
+.Right-Side-Homepage {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: $background;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  color: $black;
 
-        p{
-            margin: 8px;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            padding-top: 40px;
-          }
-          
-          input {
-            width: 300px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-          }
-          
-          button {
-            background-color: #000;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-          }
-  }
-  
-  .Message{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+  p {
+    margin: 8px;
   }
 
-  .navbar {
+  form {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    background-color: lightblue;
+    gap: 20px;
+    padding-top: 40px;
+  }
+
+  input {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid $grey;
+    border-radius: 5px;
+  }
+
+  button {
+    background-color: $black;
+    color: $primary-text;
     padding: 10px 20px;
-    color: white;
-    position: relative; /* Damit der mittlere Teil absolut zentriert werden kann */
-  
-    .navbar-left {
-      display: flex;
-      gap: 15px;
-  
-      button {
-        background-color: transparent;
-        border: none;
-        color: white;
-        cursor: pointer;
-        font-size: 16px;
-        padding: 8px 12px;
-        transition: background-color 0.3s;
-  
-        &:hover {
-          background-color: #555;
-        }
-  
-        &.active {
-          background-color: #007bff; /* Farbe für den aktiven Button */
-          color: white;
-          border-radius: 5px;
-        }
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
+
+.Message {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $secondary;
+  padding: 10px 20px;
+  color: $white;
+  position: relative;
+  /* Damit der mittlere Teil absolut zentriert werden kann */
+
+  .navbar-left {
+    display: flex;
+    gap: 15px;
+
+    button {
+      background-color: transparent;
+      border: none;
+      color: $white;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 8px 12px;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: $grey-dark;
+      }
+
+      &.active {
+        background-color: $primary;
+        /* Farbe für den aktiven Button */
+        color: $white;
+        border-radius: 5px;
       }
     }
-  
-    .navbar-center {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      text-align: center;
-  
-      h1 {
-        margin: 0;
-        font-size: 24px;
-      }
+  }
+
+  .navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
     }
-  
-    .navbar-right {
-      display: flex;
-      align-items: center;
-  
+  }
+
+  .navbar-right {
+    display: flex;
+    align-items: center;
+
     //   .profile-icon {
     //     width: 40px;
     //     height: 40px;
@@ -217,21 +224,21 @@
     //     cursor: pointer;
     //   }
     button {
-        background-color: transparent;
-        border: none;
-        color: white;
-        cursor: pointer;
-        font-size: 16px;
-        padding: 8px 12px;
-        transition: background-color 0.3s;
-        &:hover {
-            background-color: #555;
-          }
-    
-          &.active {
-            border-bottom: 2px solid white;
-          }
-    }
+      background-color: transparent;
+      border: none;
+      color: $white;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 8px 12px;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: $grey-dark;
+      }
+
+      &.active {
+        border-bottom: 2px solid $white;
+      }
     }
   }
-  
+}
