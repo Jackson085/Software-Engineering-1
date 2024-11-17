@@ -36,7 +36,7 @@ class AuthenticationDatabaseService(BaseConnection):
     # endregion
 
     @staticmethod
-    def _create_account(self, collection, username, password):
+    def _create_account(collection, username, password):
         hashed_password = generate_password_hash(password)
         if collection.find_one({"username": username}):
             raise KeyError(f"Account with username {username} already exists.")
