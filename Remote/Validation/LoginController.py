@@ -27,11 +27,11 @@ def login():
           properties:
             username:
               type: string
-              example: user
+              example: new_user
               description: Username for the user or admin
             password:
               type: string
-              example: user
+              example: secure_password
               description: Password for the user or admin
     responses:
       200:
@@ -70,7 +70,7 @@ def login():
 # Sample protected route
 @login_app_bp.route('/protected/user', methods=['GET'])
 @user_token_required
-def protected_user():
+def protected_user(username):
     """
     Protected User Route just for testing
     ---
@@ -110,7 +110,7 @@ def protected_user():
 
 @login_app_bp.route('/protected/admin', methods=['GET'])
 @admin_token_required
-def protected_admin():
+def protected_admin(username):
     """
     Protected Admin Route just for testing
     ---
