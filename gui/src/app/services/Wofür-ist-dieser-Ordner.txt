@@ -1,0 +1,1 @@
+In diesem Ordner werden die REST-Calls erstellt, über die wir das Backend ansprechen.

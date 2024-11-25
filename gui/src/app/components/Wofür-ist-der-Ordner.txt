@@ -1,0 +1,2 @@
+In diesem Ordener werden die Komponenten erzeugt, die keine eigenen Seiten sind, sondern von Seiten aufgerufen werden.
+- Die Header Komponente als Beispiel
