@@ -1,0 +1,2 @@
+In diesem Ordner landen die Datenmodelle die wir benötigen.
+- Bsp. User   um mit user.id user.name etc zu arbeiten
