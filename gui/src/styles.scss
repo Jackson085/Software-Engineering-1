@@ -8,7 +8,7 @@ $text-light: $grey-light;
 $text-dark: #333;
 
 $primary: #0056b3;
-$primary-hover: #004a9f;
+$primary-hover: #10009f;
 $primary-text: $text-light;
 
 $secondary: #71A3EA;
@@ -35,3 +35,95 @@ $background: $grey-light;
 $background-light: #ffffff;
 
 $shadow: rgba(0, 0, 0, 0.2);
+
+/* Global button styles */
+.button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+
+    /* Default color */
+    color: $text-dark;
+    background-color: $grey-light;
+    border: 1px solid $grey;
+
+    &:hover {
+        background-color: $grey;
+    }
+
+    &.primary {
+        color: $primary-text;
+        background-color: $primary;
+        border: 1px solid $primary;
+
+        &:hover {
+            background-color: $primary-hover;
+        }
+    }
+
+    &.primary-alt {
+        color: $primary;
+        background-color: transparent;
+        border: 1px solid $primary;
+
+        &:hover {
+            color: $primary-hover;
+            border-color: $primary-hover;
+            background-color: rgba(97, 97, 97, 0.1);
+        }
+    }
+
+    &.secondary {
+        color: $secondary-text;
+        background-color: $secondary;
+        border: 1px solid $secondary;
+
+        &:hover {
+            background-color: $secondary-hover;
+        }
+    }
+
+    &.success {
+        color: $success-text;
+        background-color: $success;
+        border: 1px solid $success;
+
+        &:hover {
+            background-color: $success-hover;
+        }
+    }
+
+    &.error {
+        color: $error-text;
+        background-color: $error;
+        border: 1px solid $error;
+
+        &:hover {
+            background-color: $error-hover;
+        }
+    }
+
+    &.warning {
+        color: $warning-text;
+        background-color: $warning;
+        border: 1px solid $warning;
+
+        &:hover {
+            background-color: $warning-hover;
+        }
+    }
+
+    &.info {
+        color: $info-text;
+        background-color: $info;
+        border: 1px solid $info;
+
+        &:hover {
+            background-color: $info-hover;
+        }
+    }
+}
