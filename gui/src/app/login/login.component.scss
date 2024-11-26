@@ -1,0 +1,50 @@
+@import 'styles';
+
+.login-page {
+    height: 100vh;
+    width: 100%;
+    background-image: url('/assets/login_background.jpg'); /* Update with your image path */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 300px;
+}
+
+.welcome-header {
+    color: $white;
+    font-size: 200%;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.input-group {
+    margin-bottom: 7.5px;
+}
+
+.input {
+    width: 100%;
+    max-width: 100%;
+}
+
+.button-group {
+    justify-content: space-between;
+    display: flex;
+    max-width: 100%;
+    gap: 5px;
+}
+
+.button {
+    flex-grow: 1;
+    max-width: 100%;
+}
