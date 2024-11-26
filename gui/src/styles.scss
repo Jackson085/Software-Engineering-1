@@ -1,7 +1,11 @@
+body {
+    margin: 0;
+}
+
 $black: #000;
 $grey-dark: #555;
 $grey: #ccc;
-$grey-light: #f8f9fa;
+$grey-light: #e6e6e6;
 $white: #fff;
 
 $text-light: $grey-light;
@@ -42,7 +46,7 @@ $shadow: rgba(0, 0, 0, 0.2);
     font-size: 1rem;
     font-weight: bold;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 10px;
     text-decoration: none;
     cursor: pointer;
 
@@ -67,13 +71,13 @@ $shadow: rgba(0, 0, 0, 0.2);
 
     &.primary-alt {
         color: $primary;
-        background-color: transparent;
+        background-color: $white;
         border: 1px solid $primary;
 
         &:hover {
             color: $primary-hover;
             border-color: $primary-hover;
-            background-color: rgba(97, 97, 97, 0.1);
+            background-color: $grey-light;
         }
     }
 
@@ -125,5 +129,36 @@ $shadow: rgba(0, 0, 0, 0.2);
         &:hover {
             background-color: $info-hover;
         }
+    }
+}
+
+
+/* Global input styles */
+.input {
+    display: block;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid $grey-light;
+    border-radius: 10px;
+    background-color: $white;
+    color: $text-dark;
+    outline: none;
+    box-sizing: border-box;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: all 0.3s ease-in-out;
+
+    &::placeholder {
+        color: $grey;
+    }
+
+    &:hover {
+        border-color: $grey;
+        background-color: $grey-light;
+    }
+
+    &:focus {
+        border-color: $primary; 
+        box-shadow: 0 0 4px $primary; 
+        background-color: $grey-light;
     }
 }
