@@ -45,6 +45,14 @@
 }
 
 .button {
-    flex-grow: 1;
+    flex: 1;
     max-width: 100%;
+}
+
+.error {
+    color: $error;
+    text-align: left;
+    margin-top: -5px;
+    margin-bottom: 2px;
+    margin-left: 5px;
 }

@@ -2,11 +2,13 @@
     <div class="login-container">
         <h1 class="welcome-header">Login Now</h1>
         <div class="input-group">
-            <input id="email" class="input" type="email" placeholder="Enter your email">
+            <input id="email" class="input" type="email" [value]="email()" (input)="onEmailInput($event)" (blur)="onEmailBlur()" placeholder="Enter your email">
         </div>
+        <p *ngIf="!isEmailValid() && isEmailBlur()" class="error">Please entere a valid email!</p>
         <div class="input-group">
-            <input id="password" class="input" type="password" placeholder="Enter your password">
+            <input id="password" class="input" type="password" [value]="password()" (input)="onPasswordInput($event)" placeholder="Enter your password">
         </div>
+        <p *ngIf="hasLoginAttempted() && !isLoginValid()" class="error">Email or password wrong!</p>
         <div class="button-group">
             <button class="button primary">Login</button>
             <button class="button primary-alt">Register</button>
