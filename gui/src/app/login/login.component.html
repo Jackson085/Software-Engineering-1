@@ -10,8 +10,11 @@
         </div>
         <p *ngIf="hasLoginAttempted() && !isLoginValid()" class="error">Email or password wrong!</p>
         <div class="button-group">
-            <button class="button primary">Login</button>
-            <button class="button primary-alt">Register</button>
+            <button class="button primary" (click)="onLogin()">Login</button>
+            <button class="button primary-alt" (click)="onRegister()">Register</button>
+        </div>
+        <div class="legal-info">
+            <button class="button link" (click)="onLegalInfo()">Legal information</button>
         </div>
     </div>
 </div>

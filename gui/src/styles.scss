@@ -130,6 +130,22 @@ $shadow: rgba(0, 0, 0, 0.2);
             background-color: $info-hover;
         }
     }
+
+    &.link {
+        background: none;
+        color: $primary;
+        border: none;
+        padding: 0;
+        font-size: 1rem;
+        font-weight: normal;
+        text-decoration: underline;
+        cursor: pointer;
+
+        &:hover {
+            color: $primary-hover;
+            text-decoration: none;
+        }
+    }
 }
 
 
