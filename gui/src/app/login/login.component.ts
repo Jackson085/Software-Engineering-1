@@ -2,6 +2,7 @@ import { Component, computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,10 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private loginService: LoginService
+  ) {}
 
   email = signal<string>('');
   password = signal<string>('');
@@ -36,11 +40,26 @@ export class LoginComponent {
   }
 
   onLogin(): void {
-    const isLoginValid: boolean = false;
-    if (isLoginValid) {
-      this.isLoginValid.set(true);
-      this.hasLoginAttempted.set(true);
-      this.router.navigate(['/'])
+    console.log(this.email(), this.password())
+    if (this.isEmailValid() && this.password()) {
+      this.loginService.login(this.email(), this.password()).subscribe({
+        next: (user) => {
+          // Store token in localStorage
+          localStorage.setItem('token', user.token);
+
+          // Update login state
+          this.isLoginValid.set(true);
+          this.hasLoginAttempted.set(true);
+
+          // Redirect to the home page
+          this.router.navigate(['/home']);
+        },
+        error: (err) => {
+          console.error('Login failed:', err);
+          this.isLoginValid.set(false);
+          this.hasLoginAttempted.set(true);
+        }
+      });
     } else {
       this.isLoginValid.set(false);
       this.hasLoginAttempted.set(true);

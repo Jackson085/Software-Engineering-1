@@ -16,9 +16,11 @@ export class AppComponent {
 
   constructor(private router: Router) {}
 
-  // Check if the current route is /todos
+  // Check if the current route shoud see the header
   hideHeader(): boolean {
-    const pagesWitoutHeader: Array<string> = ["/login", "/register"]
-    return pagesWitoutHeader.includes(this.router.url);
+    const pagesWitoutHeader: Array<string> = ["/login", "/register"];
+    const currentUrl = new URL(this.router.url, window.location.origin);
+    const basePath = currentUrl.pathname;
+    return pagesWitoutHeader.includes(basePath);
   }
 }
