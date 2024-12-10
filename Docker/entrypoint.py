@@ -2,6 +2,7 @@ from flask import Flask
 from flasgger import Swagger
 
 from Remote.Categories.CategoriesController import categories_bp
+from Remote.Images.ImageController import image_bp
 from Remote.Validation.LoginController import login_app_bp
 from Remote.Validation.RegisterController import register_app_bp
 
@@ -13,6 +14,8 @@ swagger = Swagger(app)
 app.register_blueprint(login_app_bp)
 app.register_blueprint(register_app_bp)
 app.register_blueprint(categories_bp)
+app.register_blueprint(image_bp)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
