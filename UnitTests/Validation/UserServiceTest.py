@@ -51,37 +51,42 @@ class UserServiceTest(unittest.TestCase):
     def test_create_user_success(self):
         username = "new_user"
         password = "valid_password"
+        mail = "dummy@gmail.de"
         self.mock_db_service_instance.get_all_usernames.return_value = []
 
-        self.user_service.create_user(username, password)
+        self.user_service.create_user(username, password, mail)
 
         self.mock_db_service_instance.get_all_usernames.assert_called_once()
-        self.mock_db_service_instance.create_user.assert_called_once_with(username, password)
+        self.mock_db_service_instance.create_user.assert_called_once_with(username, password, mail)
 
     def test_create_user_invalid_password(self):
         username = "new_user"
         password = "short"
+        mail = "dummy@gmail.de"
 
         with self.assertRaises(TypeError) as context:
-            self.user_service.create_user(username, password)
-        self.assertEqual(str(context.exception), "password or username is invalid")
+            self.user_service.create_user(username, password, mail)
+        self.assertIn("password or username is invalid", str(context.exception))
 
     def test_create_user_existing_username(self):
         username = "existing_user"
         password = "valid_password"
+        mail = "dummy@gmail.de"
+
         self.mock_db_service_instance.get_all_usernames.return_value = ["existing_user"]
 
         with self.assertRaises(KeyError) as context:
-            self.user_service.create_user(username, password)
+            self.user_service.create_user(username, password, mail)
         self.assertEqual(str(context.exception), "'existing_user already exists'")
 
     def test_create_user_empty_username(self):
         username = ""
         password = "valid_password"
+        mail = "dummy@gmail.de"
 
         with self.assertRaises(TypeError) as context:
-            self.user_service.create_user(username, password)
-        self.assertEqual(str(context.exception), "password or username is invalid")
+            self.user_service.create_user(username, password, mail)
+        self.assertIn("password or username is invalid", str(context.exception))
 
 
 if __name__ == '__main__':
