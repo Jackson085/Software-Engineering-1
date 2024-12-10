@@ -1,100 +1,116 @@
 from flask import Blueprint, request, jsonify
 from Domain.ImageService.ImageService import ImageService
-from Domain.Validation.TokenValidationService import admin_token_required
+from Domain.Validation.TokenValidationService import admin_token_required, user_token_required
 
 image_bp = Blueprint('image', __name__)
 image_service = ImageService()
 
 @image_bp.route('/images', methods=['POST'])
-# @admin_token_required
+@admin_token_required
 def create_image():
     """
-        Create Image
-        ---
-        tags:
-          - Images
-        summary: Create a new image
-        description: Create a new image by providing all the necessary details such as category, title, artist, and dimensions. Returns the ID of the created image if successful, or an error message otherwise.
-        parameters:
-          - name: image_data
-            in: body
-            required: true
-            schema:
-              type: object
-              required:
-                - category
-                - title
-                - artist
-                - motive_height
-                - motive_width
-                - sheet_height
-                - sheet_width
-                - price
-                - photo_url
-              properties:
-                category:
-                  type: string
-                  example: "Originale"
-                  description: "The category of the image (e.g., Originale, Reproduktionen, Grafiken)."
-                title:
-                  type: string
-                  example: "Starry Night"
-                  description: "The title of the image."
-                artist:
-                  type: string
-                  example: "Vincent van Gogh"
-                  description: "The artist who created the image."
-                motive_height:
-                  type: number
-                  format: float
-                  example: 50.0
-                  description: "Height of the image motive in cm."
-                motive_width:
-                  type: number
-                  format: float
-                  example: 40.0
-                  description: "Width of the image motive in cm."
-                sheet_height:
-                  type: number
-                  format: float
-                  example: 60.0
-                  description: "Height of the image sheet in cm."
-                sheet_width:
-                  type: number
-                  format: float
-                  example: 50.0
-                  description: "Width of the image sheet in cm."
-                price:
-                  type: number
-                  format: float
-                  example: 1500.00
-                  description: "Price of the image in the chosen currency."
-                photo_url:
-                  type: string
-                  format: uri
-                  example: "https://example.com/images/starry-night.jpg"
-                  description: "URL to the image's photo."
-        responses:
-          201:
-            description: Image created successfully
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: "Image created"
-                image_id:
-                  type: string
-                  example: "64aef5d84f1e0e1234567890"
-          400:
-            description: Error occurred while creating the image
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  example: "Invalid or missing data"
-        """
+    Create Image
+    ---
+    tags:
+      - Images
+    summary: Create a new image
+    description: Create a new image by providing all the necessary details such as category, title, artist, dimensions, and photo URL. The image will be saved to the database, and the ID of the created image will be returned. Only accessible by admin users with a valid token.
+    parameters:
+      - name: image_data
+        in: body
+        required: true
+        schema:
+          type: object
+          required:
+            - category
+            - title
+            - artist
+            - motive_height
+            - motive_width
+            - sheet_height
+            - sheet_width
+            - price
+            - photo_url
+          properties:
+            category:
+              type: string
+              example: "Originale"
+              description: "The category of the image (e.g., Originale, Reproduktionen, Grafiken)."
+            title:
+              type: string
+              example: "Starry Night"
+              description: "The title of the image."
+            artist:
+              type: string
+              example: "Vincent van Gogh"
+              description: "The artist who created the image."
+            motive_height:
+              type: number
+              format: float
+              example: 50.0
+              description: "Height of the image motive in cm."
+            motive_width:
+              type: number
+              format: float
+              example: 40.0
+              description: "Width of the image motive in cm."
+            sheet_height:
+              type: number
+              format: float
+              example: 60.0
+              description: "Height of the image sheet in cm."
+            sheet_width:
+              type: number
+              format: float
+              example: 50.0
+              description: "Width of the image sheet in cm."
+            price:
+              type: number
+              format: float
+              example: 1500.00
+              description: "Price of the image in the chosen currency."
+            photo_url:
+              type: string
+              format: uri
+              example: "https://example.com/images/starry-night.jpg"
+              description: "URL to the image's photo."
+    responses:
+      201:
+        description: Image created successfully
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Image created"
+            image_id:
+              type: string
+              example: "64aef5d84f1e0e1234567890"
+      400:
+        description: Error occurred while creating the image due to invalid or missing data
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Invalid or missing data"
+      401:
+        description: Unauthorized access, admin token is required
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Unauthorized: Admin token is required"
+      500:
+        description: Server error while processing the image creation
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Internal server error"
+    """
     data = request.get_json()
     try:
         image_id = image_service.create_image(data)
@@ -181,7 +197,7 @@ def get_images():
         return jsonify({"error": str(e)}), 400
 
 @image_bp.route('/images/<image_id>', methods=['PUT'])
-# @admin_token_required
+@admin_token_required
 def update_image(image_id):
     """
     Update Image
@@ -189,7 +205,7 @@ def update_image(image_id):
     tags:
       - Images
     summary: Update an existing image
-    description: Updates an image's details such as category, title, artist, dimensions, and price based on the provided image ID.
+    description: Update an image's details such as category, title, artist, dimensions, and price based on the provided image ID.
     parameters:
       - name: image_id
         in: path
@@ -197,11 +213,21 @@ def update_image(image_id):
         type: string
         description: The unique identifier of the image to be updated.
         example: "64aef5d84f1e0e1234567890"
-      - name: user_data
+      - name: image_data
         in: body
         required: true
         schema:
           type: object
+          required:
+            - category
+            - title
+            - artist
+            - motive_height
+            - motive_width
+            - sheet_height
+            - sheet_width
+            - price
+            - photo_url
           properties:
             category:
               type: string
@@ -255,13 +281,21 @@ def update_image(image_id):
               type: string
               example: "Image updated"
       400:
-        description: Invalid input or error occurred
+        description: Invalid input or error occurred while updating the image
         schema:
           type: object
           properties:
             message:
               type: string
               example: "Failed to update the image"
+      401:
+        description: Unauthorized (Admin rights required)
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Unauthorized: Admin access required"
       404:
         description: Image not found
         schema:
@@ -271,7 +305,7 @@ def update_image(image_id):
               type: string
               example: "Image not found"
       500:
-        description: Server error
+        description: Server error occurred while updating the image
         schema:
           type: object
           properties:
@@ -287,87 +321,47 @@ def update_image(image_id):
         return jsonify({"error": str(e)}), 400
 
 @image_bp.route('/images/<image_id>', methods=['DELETE'])
-# @admin_token_required
+@admin_token_required
 def delete_image(image_id):
     """
-    Update Image
+    Delete Image
     ---
     tags:
       - Images
-    summary: Update an existing image
-    description: Updates an image's details such as category, title, artist, dimensions, and price based on the provided image ID.
+    summary: Delete an existing image
+    description: Deletes an image by its unique ID from the database.
     parameters:
       - name: image_id
         in: path
         required: true
         type: string
-        description: The unique identifier of the image to be updated.
+        description: The unique identifier of the image to be deleted.
         example: "64aef5d84f1e0e1234567890"
-      - name: user_data
-        in: body
-        required: true
-        schema:
-          type: object
-          properties:
-            category:
-              type: string
-              example: "Reproduktionen"
-              description: "The updated category of the image (e.g., Originale, Reproduktionen, Grafiken)."
-            title:
-              type: string
-              example: "The Persistence of Memory"
-              description: "The updated title of the image."
-            artist:
-              type: string
-              example: "Salvador Dalí"
-              description: "The updated artist name."
-            motive_height:
-              type: number
-              format: float
-              example: 30.0
-              description: "Updated height of the image motive in cm."
-            motive_width:
-              type: number
-              format: float
-              example: 40.0
-              description: "Updated width of the image motive in cm."
-            sheet_height:
-              type: number
-              format: float
-              example: 50.0
-              description: "Updated height of the image sheet in cm."
-            sheet_width:
-              type: number
-              format: float
-              example: 60.0
-              description: "Updated width of the image sheet in cm."
-            price:
-              type: number
-              format: float
-              example: 2000.00
-              description: "Updated price of the image in the chosen currency."
-            photo_url:
-              type: string
-              format: uri
-              example: "https://example.com/images/persistence-of-memory.jpg"
-              description: "Updated URL to the image's photo."
     responses:
-      200:
-        description: Image updated successfully
+      204:
+        description: Image deleted successfully
         schema:
           type: object
           properties:
             message:
               type: string
-              example: "Image updated"
+              example: "Image deleted"
       400:
-        description: Invalid input or error occurred
+        description: Error occurred while deleting the image
         schema:
           type: object
           properties:
             message:
               type: string
-              example: "Failed to update the image"
+              example: "Failed to delete the image"
+      401:
+        description: Unauthorized (Admin rights required)
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Unauthorized: Admin access required"
       404:
         description: Image not found
         schema:
@@ -377,7 +371,7 @@ def delete_image(image_id):
               type: string
               example: "Image not found"
       500:
-        description: Server error
+        description: Server error occurred while deleting the image
         schema:
           type: object
           properties:
