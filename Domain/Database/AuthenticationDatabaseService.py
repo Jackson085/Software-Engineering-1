@@ -14,8 +14,8 @@ class AuthenticationDatabaseService(BaseConnection):
     def get_all_usernames(self):
         return [user['username'] for user in self.user_collection.find({}, {"username": 1, "_id": 0})]
 
-    def create_user(self, username, password):
-        return self._create_account(self.user_collection, username, password)
+    def create_user(self, username, password, mail):
+        return self._create_account(self.user_collection, username, password, mail)
 
     def get_user_password(self, username):
         entry = (self.user_collection.find_one({"username": username}))
@@ -25,8 +25,8 @@ class AuthenticationDatabaseService(BaseConnection):
     # endregion
 
     # region admin
-    def create_admin(self, username, password):
-        return self._create_account(self.admin_collection, username, password)
+    def create_admin(self, username, password, mail):
+        return self._create_account(self.admin_collection, username, password, mail)
 
     def get_admin_password(self, username):
         entry = (self.user_collection.find_one({"username": username}))
@@ -36,14 +36,15 @@ class AuthenticationDatabaseService(BaseConnection):
     # endregion
 
     @staticmethod
-    def _create_account(collection, username, password):
+    def _create_account(collection, username, password, mail):
         hashed_password = generate_password_hash(password)
         if collection.find_one({"username": username}):
             raise KeyError(f"Account with username {username} already exists.")
 
         collection.insert_one({
             "username": username,
-            "password": hashed_password
+            "password": hashed_password,
+            "e-mail": mail,
         })
 
 if __name__ == '__main__':
